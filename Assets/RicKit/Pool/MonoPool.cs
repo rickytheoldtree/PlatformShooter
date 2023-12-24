@@ -36,7 +36,7 @@ namespace RicKit.Pool
             mResetMethod?.Invoke(obj);
             if (CurCount >= mMaxCount)
             {
-                Object.DestroyImmediate(obj);
+                Object.Destroy(obj);
                 return true;
             }
             mCacheStack.Push(obj);
