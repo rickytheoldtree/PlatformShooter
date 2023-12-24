@@ -6,15 +6,18 @@ namespace PlatformShooter.Character
 {
     public class SimpleNpc : CharacterBase
     {
-        private Vector2 direction = Vector2.left;
+        private Vector2 direction;
+        [SerializeField] private SpriteRenderer srMelee;
         protected override Color OriginColor => Color.red;
-        protected override void Awake()
+
+        public override void Init()
         {
-            base.Awake();
-            onHpZero += OnHpZero;
+            base.Init();
+            direction = Vector2.left;
+            srMelee.color = Color.white;
         }
-        
-        private void OnHpZero()
+
+        protected override void OnHpZero()
         {
             if (isDead)
             {
@@ -23,6 +26,7 @@ namespace PlatformShooter.Character
             velocity.y = 3f;
             isDead = true;
             DOTween.Sequence().Append(spriteRenderer.DOFade(0, 1f))
+                .Join(srMelee.DOFade(0, 1f))
                 .AppendCallback(() => Destroy(gameObject));
         }
 
@@ -41,11 +45,11 @@ namespace PlatformShooter.Character
             Hp.Value -= obj.Damage;
             if (Hp.Value <= 0)
             {
-                AddAlterForce(obj.Direction.normalized * 3f, 1);
+                AddAlterForce(obj.Direction.normalized * 4f, 1);
             }
             else
             {
-                AddAlterForce(obj.Direction.normalized * 10f, 0.2f);
+                AddAlterForce(obj.Direction.normalized * 8f, 0.2f);
             }
             
         }

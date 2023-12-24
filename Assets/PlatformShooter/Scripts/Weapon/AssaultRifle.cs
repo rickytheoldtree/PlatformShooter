@@ -11,7 +11,7 @@ namespace PlatformShooter.Weapon
             {
                 speed = 30f,
                 lifeTime = 1f,
-                damage = 20,
+                damage = 25,
             };
         }
     }

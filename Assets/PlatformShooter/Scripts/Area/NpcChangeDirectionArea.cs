@@ -1,7 +1,7 @@
 using PlatformShooter.Character;
 using UnityEngine;
 
-namespace PlatformShooter.Event
+namespace PlatformShooter.Area
 {
     public class NpcChangeDirectionArea : MonoBehaviour
     {

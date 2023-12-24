@@ -177,6 +177,7 @@ MonoBehaviour:
   maxSpeed: 10
   jumpForce: 10
   weapon: {fileID: 9017154098768740187}
+  cameraTarget: {fileID: 6504607563267603898}
 --- !u!212 &6504607564142233251
 SpriteRenderer:
   m_ObjectHideFlags: 0

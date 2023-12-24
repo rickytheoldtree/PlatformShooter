@@ -17,7 +17,6 @@ namespace PlatformShooter.Character
         protected EventProperty<int> Hp { get; } = new EventProperty<int>(100);
         public bool IsDead => isDead;
         protected bool isDead;
-        protected Action onHpZero;
         public Vector2 FaceDirection => faceDirection;
         protected override void Awake()
         {
@@ -40,15 +39,23 @@ namespace PlatformShooter.Character
         {
             if(oldValue > value)
             {
-                damageTween?.Kill();
-                damageTween = DOTween.Sequence()
-                    .Append(spriteRenderer.DOColor(Color.white, 0.05f))
-                    .Append(spriteRenderer.DOColor(OriginColor, 0.05f));
+                OnHpDecrease();
             }
             if (value <= 0)
             {
-                onHpZero?.Invoke();
+                OnHpZero();
             }
+        }
+        protected virtual void OnHpDecrease()
+        {
+            damageTween?.Kill();
+            damageTween = DOTween.Sequence()
+                .Append(spriteRenderer.DOColor(Color.white, 0.05f))
+                .Append(spriteRenderer.DOColor(OriginColor, 0.05f));
+        }
+        protected virtual void OnHpZero()
+        {
+            
         }
 
         /// <summary>

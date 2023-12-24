@@ -1,5 +1,5 @@
-using System;
-using PlatformShooter.Event;
+using DG.Tweening;
+using PlatformShooter.Config;
 using PlatformShooter.Systems;
 using PlatformShooter.Weapon;
 using UnityEngine;
@@ -10,15 +10,18 @@ namespace PlatformShooter.Character
     {
         [SerializeField]
         private RangeWeaponBase weapon;
+        private SpriteRenderer srWeapon;
+        public Transform cameraTarget;
         private float timeFromLastJumpButtonDown;
         protected override Color OriginColor => Color.blue;
-
 
         protected override void Awake()
         {
             base.Awake();
             maxSpeed = 10f;
             jumpForce = 15f;
+            srWeapon = weapon.GetComponent<SpriteRenderer>();
+            
         }
 
         private void Start()
@@ -26,14 +29,56 @@ namespace PlatformShooter.Character
             Init();
         }
 
+        public override void Init()
+        {
+            base.Init();
+            srWeapon.color = Color.white;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(velocity.y < 0 && other.transform.parent && other.transform.parent.TryGetComponent(out SimpleNpc simpleNpc) 
-               && !simpleNpc.IsDead)
+            if(other.TryGetComponent<HitBox>(out var hitBox) && hitBox.owner 
+                                                             && hitBox.owner is SimpleNpc npc)
             {
-                simpleNpc.OnStepOn();
-                Jump(jumpForce);
+                switch (hitBox.name)
+                {
+                    case "Head" when !isDead && velocity.y < 0 && !isGrounded:
+                        npc.OnStepOn();
+                        Jump(jumpForce);
+                        break;
+                    case "Melee" when !ConfigHelper.IsInvincible.Value && !isDead && !npc.IsDead:
+                        OnHit(npc);
+                        break;
+                }
             }
+        }
+
+        private void OnHit(SimpleNpc npc)
+        {
+            if (isDead) return;
+            Hp.Value -= 10;
+            var dir = (npc.transform.position - transform.position).x > 0 ? Vector2.left : Vector2.right;
+            if (Hp.Value <= 0)
+            {
+                AddAlterForce(dir * 3f, 1);
+            }
+            else
+            {
+                AddAlterForce(dir * 12f, 0.2f);
+            }
+        }
+
+        protected override void OnHpZero()
+        {
+            if (isDead)
+            {
+                return;
+            }
+            velocity.y = 3f;
+            isDead = true;
+            DOTween.Sequence().Append(spriteRenderer.DOFade(0, 1f))
+                .Join(srWeapon.DOFade(0, 1f))
+                .AppendCallback(GameSystem.I.RestartGame);
         }
 
         private void Jump(float force)
@@ -89,17 +134,19 @@ namespace PlatformShooter.Character
         protected override void Update()
         {
             base.Update();
-            if (Input.GetMouseButton(0))
+            
+            if (Input.GetMouseButton(0) && GameSystem.I.EventSystem.IsPointerOverGameObject() == false)
             {
                 Attack();
             }
         }
         private void Attack()
         {
-            weapon.Fire(this, faceDirection);
+            if(isDead) return;
+            if (weapon.Fire(this, faceDirection))
+            {
+                GameSystem.I.CameraCtrl.Shake(-faceDirection * 0.1f);
+            }
         }
-
-        public GameObject GameObject => gameObject;
-        public CharacterBase CharBase => this;
     }
 }
