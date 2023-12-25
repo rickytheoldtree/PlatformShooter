@@ -10,18 +10,31 @@ namespace PlatformShooter.Systems
     public class GameSystem : MonoSingleton<GameSystem>
     {
         private NpcPosConfig npcPosConfig;
-        private PlayerController Player { get; set; }
+
+        private PlayerController Player
+        {
+            get
+            {
+                if (!mPlayer)
+                {
+                    mPlayer = Instantiate(Resources.Load<GameObject>("Prefabs/Player")).GetComponent<PlayerController>();
+                }
+
+                return mPlayer;
+            }
+        }
+
+        private PlayerController mPlayer;
         public CameraCtrl CameraCtrl { get; private set; }
         public EventSystem EventSystem { get; private set; }
         private readonly Vector2 playerInitPos = new Vector2(0, 2);
         protected override void GetAwake()
         {
+            Application.targetFrameRate = 60;
             npcPosConfig = Resources.Load<NpcPosConfig>("SO/NpcPosConfig");
-            Player = Instantiate(Resources.Load<GameObject>("Prefabs/Player")).GetComponent<PlayerController>();
-            Player.transform.position = playerInitPos;
             EventSystem = EventSystem.current;
         }
-        public void StartGame()
+        public void SpawnNpcs()
         {
             NpcSystem.I.Clear();
             foreach (var pos in npcPosConfig.list)
@@ -34,21 +47,22 @@ namespace PlatformShooter.Systems
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                RestartGame();
+                InitGame();
             }
         }
 
-        public void RestartGame()
+        public void InitGame()
         {
             NpcSystem.I.Clear();
+            BulletShellSystem.I.Clear();
             Player.Init();
             Player.transform.position = playerInitPos;
+            CameraCtrl.SetTargets(new []{Player.transform, Player.cameraTarget});
         }
 
         public void RegisterCamera(CameraCtrl cameraCtrl)
         {
             CameraCtrl = cameraCtrl;
-            CameraCtrl.SetTargets(new[] {Player.transform, Player.cameraTarget});
         }
     }
 }

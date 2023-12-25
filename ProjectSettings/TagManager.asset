@@ -15,7 +15,7 @@ TagManager:
   - Npc
   - Ground
   - HitBox
-  - 
+  - Effect
   - 
   - 
   - 
@@ -43,4 +43,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2509928127
+    locked: 0
+  - name: Effect
+    uniqueID: 4107206805
+    locked: 0
+  - name: UI
+    uniqueID: 2133010245
     locked: 0

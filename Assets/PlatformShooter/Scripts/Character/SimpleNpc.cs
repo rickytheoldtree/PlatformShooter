@@ -57,8 +57,7 @@ namespace PlatformShooter.Character
         protected override void ComputeVelocity()
         {
             base.ComputeVelocity();
-            if (isDead)
-                return;
+            if (isDead) return;
             if (direction.x > 0.01f)
             {
                 Face(Vector2.right);

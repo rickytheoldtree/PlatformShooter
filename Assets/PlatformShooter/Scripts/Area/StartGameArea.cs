@@ -11,7 +11,7 @@ namespace PlatformShooter.Area
             if(other.TryGetComponent<PlayerController>(out var player) && player.FaceDirection == Vector2.right
                && other.transform.position.x < transform.position.x)
             {
-                GameSystem.I.StartGame();
+                GameSystem.I.SpawnNpcs();
             }
         }
     }

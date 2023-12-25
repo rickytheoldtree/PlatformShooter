@@ -7,7 +7,6 @@ namespace PlatformShooter.Character
     public class Physics2DBase : MonoBehaviour
     {
         public float GravityMod { get; set; } = 1f;
-        protected Vector2 alternativeForce;
         protected Rigidbody2D rb;
         protected Vector2 targetVelocity;
         protected Vector2 velocity;
@@ -84,11 +83,6 @@ namespace PlatformShooter.Character
                 }
             }
             rb.position += move.normalized * distance;
-        }
-
-        public void AddForce(Vector2 force)
-        {
-            alternativeForce += force;
         }
     }
 }

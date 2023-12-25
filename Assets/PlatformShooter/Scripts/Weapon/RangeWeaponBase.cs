@@ -17,6 +17,7 @@ namespace PlatformShooter.Weapon
             {
                 fireTimer = 0f;
                 ProjectileSystem.I.LaunchProjectile(user, transform.position, ProjectileInfo, dir);
+                BulletShellSystem.I.LaunchBulletShell(transform.position, (Vector2.up - dir).normalized);
                 if (user)
                 {
                     user.AddAlterForce(-dir.normalized * 1f, 0.1f);

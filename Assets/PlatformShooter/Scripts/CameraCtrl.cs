@@ -19,6 +19,7 @@ namespace PlatformShooter
         {
             var camPos = transform.position;
             var targetPos = Vector3.zero;
+            if(targets == null || targets.Length == 0) return;
             foreach (var target in targets)
             {
                 targetPos += target.position;
@@ -30,7 +31,7 @@ namespace PlatformShooter
             transform.position += move * (Time.deltaTime * 5);
         }
 
-        public void SetTargets(Transform[] transforms)
+        public void SetTargets(params Transform[] transforms)
         {
             targets = transforms;
         }

@@ -24,11 +24,6 @@ namespace PlatformShooter.Character
             
         }
 
-        private void Start()
-        {
-            Init();
-        }
-
         public override void Init()
         {
             base.Init();
@@ -42,7 +37,7 @@ namespace PlatformShooter.Character
             {
                 switch (hitBox.name)
                 {
-                    case "Head" when !isDead && velocity.y < 0 && !isGrounded:
+                    case "Head" when !isDead && !npc.IsDead && velocity.y < 0 && !isGrounded:
                         npc.OnStepOn();
                         Jump(jumpForce);
                         break;
@@ -70,15 +65,12 @@ namespace PlatformShooter.Character
 
         protected override void OnHpZero()
         {
-            if (isDead)
-            {
-                return;
-            }
+            if (isDead) return;
             velocity.y = 3f;
             isDead = true;
             DOTween.Sequence().Append(spriteRenderer.DOFade(0, 1f))
                 .Join(srWeapon.DOFade(0, 1f))
-                .AppendCallback(GameSystem.I.RestartGame);
+                .AppendCallback(GameSystem.I.InitGame);
         }
 
         private void Jump(float force)
@@ -108,6 +100,7 @@ namespace PlatformShooter.Character
         protected override void ComputeVelocity()
         {
             base.ComputeVelocity();
+            if(isDead) return;
             var move = Vector2.zero;
             move.x = Input.GetAxis("Horizontal");
             if (move.x > 0.01f)
@@ -135,7 +128,7 @@ namespace PlatformShooter.Character
         {
             base.Update();
             
-            if (Input.GetMouseButton(0) && GameSystem.I.EventSystem.IsPointerOverGameObject() == false)
+            if (Input.GetButton("Fire1") && GameSystem.I.EventSystem.IsPointerOverGameObject() == false)
             {
                 Attack();
             }

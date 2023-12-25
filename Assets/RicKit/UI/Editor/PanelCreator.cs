@@ -9,7 +9,7 @@ namespace RicKit.UI.Editor
 {
     public class PanelCreator : EditorWindow
     {
-        private const string Path = "Assets/Mahjong/Prefab/UIPanels";
+        private const string Path = "Assets/PlatformShooter/Resources/Prefabs/UIPanels";
         private List<Type> types;
         private GUIStyle dropAreaStyle;
         private void OnEnable()
