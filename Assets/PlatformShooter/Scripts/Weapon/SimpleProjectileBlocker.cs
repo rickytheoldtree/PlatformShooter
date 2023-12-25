@@ -1,3 +1,4 @@
+using PlatformShooter.Systems;
 using UnityEngine;
 
 namespace PlatformShooter.Weapon
@@ -9,6 +10,7 @@ namespace PlatformShooter.Weapon
             if(other.TryGetComponent<ProjectileBase>(out var projectile))
             {
                 projectile.OnImpact();
+                
             }
         }
     }

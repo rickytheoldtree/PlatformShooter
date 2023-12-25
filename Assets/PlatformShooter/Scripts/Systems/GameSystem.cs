@@ -30,7 +30,7 @@ namespace PlatformShooter.Systems
         private readonly Vector2 playerInitPos = new Vector2(0, 2);
         protected override void GetAwake()
         {
-            Application.targetFrameRate = 60;
+            //Application.targetFrameRate = 60;
             npcPosConfig = Resources.Load<NpcPosConfig>("SO/NpcPosConfig");
             EventSystem = EventSystem.current;
         }

@@ -1,6 +1,7 @@
 using PlatformShooter.Character;
 using PlatformShooter.Systems;
 using UnityEngine;
+using ParticleSystem = PlatformShooter.Systems.ParticleSystem;
 
 namespace PlatformShooter.Weapon
 {
@@ -22,6 +23,7 @@ namespace PlatformShooter.Weapon
         }
         public virtual void OnImpact()
         {
+            ParticleSystem.I.ShowHitEffect(transform.position);
             ProjectileSystem.I.Recycle(this);
         }
         public void Launch(Vector2 dir)
