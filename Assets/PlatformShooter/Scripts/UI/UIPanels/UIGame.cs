@@ -1,4 +1,6 @@
-﻿using RicKit.UI;
+﻿using System;
+using RicKit.UI;
+using UnityEngine;
 
 namespace PlatformShooter.UI.UIPanels
 {

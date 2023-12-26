@@ -154,7 +154,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: "\u5E73\u53F0\u5C04\u51FBDemo\nby \u674E\u5955\u4E03"
+  m_Text: "\u5E73\u53F0\u5C04\u51FB"
 --- !u!114 &4143493943552798258
 MonoBehaviour:
   m_ObjectHideFlags: 0
