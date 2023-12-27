@@ -305,7 +305,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6309\u201CWASD\u201D\u79FB\u52A8\uFF0C\u5DE6\u952E\u5C04\u51FB\uFF0C\u6309\u201CR\u201D\u91CD\u5F00"
+  m_Text: "Press \u201CWASD\u201D to move\uFF0Cleft mouse to shoot\uFF0C\u201CR\u201D
+    to restart"
 --- !u!1 &2459903342497575333
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,14 +454,14 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 14
+    m_MaxSize: 25
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5C4F\u5E55\u9707\u52A8"
+  m_Text: Screen Shake
 --- !u!114 &8540441294421518171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,14 +752,14 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 14
+    m_MaxSize: 25
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u65E0\u654C"
+  m_Text: Invincible
 --- !u!114 &9129201355102780124
 MonoBehaviour:
   m_ObjectHideFlags: 0
