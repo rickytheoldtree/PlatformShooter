@@ -1,5 +1,5 @@
 # 平台射击游戏Demo
-Unity练手小demo
+Unity练手小demo，项目版本：2020.3.40f1
 ## 游戏入口
 ![入口](https://github.com/rickytheoldtree/PlatformShooter/blob/main/Gif/1.gif)
 ## 其他截图
